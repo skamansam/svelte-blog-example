@@ -102,3 +102,28 @@ see the changes that have been made
 ```
 git commit -am "add mdsvex support"
 ```
+
+### setup deployments to static hosting (ie.e github-pages)
+edit svelte.config and change 
+
+install the static adapter
+```sh
+pnpm i @sveltejs/adapter-static
+```
+
+```js
+import adapter from '@sveltejs/adapter-auto';
+```
+to 
+```js
+import adapter from '@sveltejs/adapter-static';
+```
+test whether we can build, then preview the build:
+```
+pnpm build
+pnpm preview
+git commit -am "configure static adapter"
+```
+
+maybe run the lighthouse analysis on it and watch the fireworks!
+
