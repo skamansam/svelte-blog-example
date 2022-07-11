@@ -145,3 +145,38 @@ This is a sample blog entry that will highlight the capabilities of our blog and
 ```
 
 build, test, and commit.
+
+Since we want to get some parity with `markdown-it` so we can just use our existing blog entries, we will copy the 
+`markdown-it` demo from https://markdown-it.github.io/
+
+build, test, then commit
+```
+pnpm build
+pnpm preview
+```
+
+OOPS! build failed.
+
+```
+[vite-plugin-svelte-kit] Cannot read properties of undefined (reading 'paths')
+error during build:
+TypeError: Cannot read properties of undefined (reading 'paths')
+    at create_builder (file:///home/sam/workspace/blog-example/node_modules/.pnpm/@sveltejs+kit@1.0.0-next.368_svelte@3.49.0+vite@2.9.14/node_modules/@sveltejs/kit/dist/chunks/index2.js:52:48)
+    at adapt (file:///home/sam/workspace/blog-example/node_modules/.pnpm/@sveltejs+kit@1.0.0-next.368_svelte@3.49.0+vite@2.9.14/node_modules/@sveltejs/kit/dist/chunks/index2.js:204:18)
+    at Object.closeBundle (file:///home/sam/workspace/blog-example/node_modules/.pnpm/@sveltejs+kit@1.0.0-next.368_svelte@3.49.0+vite@2.9.14/node_modules/@sveltejs/kit/dist/vite.js:3099:11)
+    at async Promise.all (index 0)
+    at async /home/sam/workspace/blog-example/node_modules/.pnpm/rollup@2.76.0/node_modules/rollup/dist/shared/rollup.js:23693:13
+    at async catchUnfinishedHookActions (/home/sam/workspace/blog-example/node_modules/.pnpm/rollup@2.76.0/node_modules/rollup/dist/shared/rollup.js:23174:20)
+    at async rollupInternal (/home/sam/workspace/blog-example/node_modules/.pnpm/rollup@2.76.0/node_modules/rollup/dist/shared/rollup.js:23682:5)
+    at async doBuild (/home/sam/workspace/blog-example/node_modules/.pnpm/vite@2.9.14/node_modules/vite/dist/node/chunks/dep-c9998dc6.js:41710:24)
+    at async build (/home/sam/workspace/blog-example/node_modules/.pnpm/vite@2.9.14/node_modules/vite/dist/node/chunks/dep-c9998dc6.js:41552:16)
+    at async CAC.<anonymous> (/home/sam/workspace/blog-example/node_modules/.pnpm/vite@2.9.14/node_modules/vite/dist/node/cli.js:738:9)
+ ELIFECYCLE  Command failed with exit code 1.
+
+```
+
+it appears something is not being processed correctly with the markdown-it content. Problem detection strategy: divide and conquer. Remove by halves and see where the problem is. Removing everything from the plugins section works. the problem must be there. put back half of that. add back all to footnotes section. removed abbreviations and custom containers causes fail so it must be in the footnotes or definition lists section. removing definition lists causes it to succeed so the problem must be there.
+
+attempt 1: replace curly brackets with svelte-syntax: { => {'{'}. still fails
+attempt 2: comment out first section. succeeds. what is here that fails?
+attempt 3: commnt out the braketed section. passes. wth?
