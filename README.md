@@ -127,3 +127,21 @@ git commit -am "configure static adapter"
 
 maybe run the lighthouse analysis on it and watch the fireworks!
 
+
+### Add some markdown content!
+
+```bash
+mkdir -p src/routes/posts
+touch src/routes/posts/sample-entry.md
+```
+Then write a basic entry. we are going to use this to test whether our markdown plugins work.
+
+```
+<!-- src/routes/posts/sample-entry.md -->
+
+# Blog Entry #1!
+
+This is a sample blog entry that will highlight the capabilities of our blog and serve as a markdown reference.
+```
+
+build, test, and commit.
